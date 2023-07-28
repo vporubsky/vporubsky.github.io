@@ -1,152 +1,886 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>vporubsky</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/magic-grid/dist/magic-grid.min.js"></script>
-    <link rel="stylesheet" href="index.css">
-  <link rel="icon" href="https://avatars.githubusercontent.com/u/30219373?v=4" type="image/png"></head>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
-    <div id="loading">
-      <div id="spinner"></div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veronica Porubsky's webpage</title>
 
-    <div id="tab-container">
-        <div id="tabs">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./research.html">Research</a>
-            <a href="./publications.html">Publications</a>
-            <a href="./github.html">GitHub Repos</a>
-        </div>
-    </div>
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
 
-    <div id="profile">
-      <div id="profile_img" style="background: url(https://avatars.githubusercontent.com/u/30219373?v=4) center;"></div>
-      <div id="username"><span style="display:block;">Veronica Porubsky</span><a href="https://github.com/vporubsky">@vporubsky</a></div>
-      <div id="userbio" style="display:block;"> I am a Bioengineering Ph.D. student at the University of Washington, using graph theory and recurrent neural network models to identify neural patterns of anxiety. <br> <br> Head of Outreach for the Center for Reproducible Biomedical Modeling.</div>
-      <div id="about">
-                <span style="display:none;"><i class="fas fa-users"></i> &nbsp; null</span>
-                <span style="display:none;"><i class="fas fa-envelope"></i> &nbsp; null</span>
-                <span style="display:none;"><i class="fas fa-link"></i> &nbsp; <a href=""></a></span>
-                <span style="display:none;"><i class="fas fa-map-marker-alt"></i> &nbsp;&nbsp; null</span>
-                <span style="display:none;"><i class="fas fa-user-tie"></i> &nbsp;&nbsp; Available for hire</span>
-                <div class="socials">
-                <span style="display:block;"><a href="https://www.linkedin.com/in/veronica-porubsky/" target="_blank" class="socials"><i class="fab fa-linkedin-in"></i></a></span>
-                </div>
-                </div>
-    </div>
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
 
-    <div id="display">
-    <div id="work">
-        <h1>Welcome!</h1>
-          <div class="projects" id="work_section">
-                      <a href="" target="_blank">
-                      <section>
-                          <div class="section_title"></div>
-                          <div class="about_section">
-                          <span style="display:block;"></span>
-                          </div>
-                      </section>
-                      </a>
-                      <a href="" target="_blank">
-                      <section>
-                          <div class="section_title"></div>
-                          <div class="about_section">
-                          <span style="display:block;"></span>
-                          </div>
-                      </section>
-                      </a>
-
-      </div>
-
-
-
-
-      <div id="forks" style="display:none;">
-        <h1>Forks.</h1>
-        <div class="projects" id="forks_section"></div>
-      </div>
-      <div id="blog_section">
-        <h1>Blog.</h1>
-        <div id="blogs"></div>
-      </div>
-      <div id="footer">
-        <a href="https://github.com/imfunniee" target="_blank">Website modified from template made on earth by a human.</a>
-      </div>
-    </div>
-    <script type="text/javascript">
-      setTimeout(function() {
-        document.getElementById("loading").classList.add("animated");
-        document.getElementById("loading").classList.add("fadeOut");
-        setTimeout(function() {
-          document.getElementById("loading").classList.remove("animated");
-          document.getElementById("loading").classList.remove("fadeOut");
-          document.getElementById("loading").style.display = "none";
-        }, 800);
-      }, 1500);
-      $.getJSON("blog.json", function(blog) {
-        blog = blog || [];
-        if (blog.length == 0) {
-          return (document.getElementById("blog_section").style.display =
-            "none");
-        }
-        for (var i = 0; i < blog.length; i++) {
-          $("#blogs").append(`
-            <a href="./blog/${blog[i].url_title}/" target="_blank">
-                <section>
-                    <img src="./blog/${blog[i].url_title}/${blog[i].top_image}">
-                    <div class="blog_container">
-                        <div class="section_title">${blog[i].title}</div>
-                        <div class="about_section">
-                            ${blog[i].sub_title}
-                        </div>
-                    </div>
-                </section>
-            </a>
-            `);
-        }
-      }).fail(function() {
-        return (document.getElementById("blog_section").style.display = "none");
-      });
-    </script>
-
-    <script>
-      const magicProjectsGrid = new MagicGrid({
-        container: "#work_section",
-        animate: false,
-        gutter: 30, // default gutter size
-        static: true,
-        useMin: false,
-        maxColumns: 2,
-        useTransform: true
-      });
-
-      const magicForksGrid = new MagicGrid({
-        container: "#forks_section",
-        animate: false,
-        gutter: 30, // default gutter size
-        static: true,
-        useMin: false,
-        maxColumns: 2,
-        useTransform: true
-      });
-
-      $("document").ready(() => {
-        magicProjectsGrid.listen();
-        magicForksGrid.listen();
-      });
-    </script>
-
-
-</body></html>
-</title>
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
+  <!--
+    - #MAIN
+  -->
+
+  <main>
+
+    <!--
+      - #SIDEBAR
+    -->
+
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+
+        <figure class="avatar-box">
+          <img src="./assets/images/my-avatar.png" alt="Veronica Porubsky" width="80">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Veronica Porubsky">Veronica Porubsky</h1>
+
+          <p class="title">Neuroscience and ML Researcher</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="sidebar-info_more">
+
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+
+              <a href="mailto:verosky@uw.edu" class="contact-link">verosky@uw.edu</a>
+            </div>
+
+
+          </li>
+
+          <li class="contact-item">
+
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Location</p>
+
+              <address>Seattle, WA, USA</address>
+            </div>
+
+          </li>
+
+      </div>
+
+    </aside>
+
+
+
+
+
+    <!--
+      - #main-content
+    -->
+
+    <div class="main-content">
+
+      <!--
+        - #NAVBAR
+      -->
+
+      <nav class="navbar">
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <button class="navbar-link  active" data-nav-link>About</button>
+          </li>
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Resume</button>
+          </li>
+
+<!--          <li class="navbar-item">-->
+<!--            <button class="navbar-link" data-nav-link>Research</button>-->
+<!--          </li>-->
+
+          <li class="navbar-item">
+            <button class="navbar-link" data-nav-link>Contact</button>
+          </li>
+
+        </ul>
+
+      </nav>
+
+
+
+
+
+      <!--
+        - #ABOUT
+      -->
+
+      <article class="about  active" data-page="about">
+
+        <header>
+          <h2 class="h2 article-title">About me</h2>
+        </header>
+
+        <section class="about-text">
+          <p>
+            I recently completed my Ph.D. in Bioengineering in Herbert Sauro's lab at the University of Washington where I developed software to readily construct graphs and
+            recurrent neural network models of neural dynamics collected with calcium imaging data. I applied these
+            packages to data collected from the dentate gyrus and the basolateral amygdala in live and behaving mice,
+            in order to study functional connectivity changes in the anxiety circuitry.
+          </p>
+
+          <p>
+            I am seeking opportunities to work on neuromodulation or brain-computer interfaces for improving human health, especially to apply adaptive,
+            closed-loop control to improving treatment-resistant mood and anxiety disorders.
+          </p>
+        </section>
+
+
+        <!--
+          - service
+        -->
+
+        <section class="service">
+
+          <h3 class="h3 service-title">A Whole Human</h3>
+
+          <ul class="service-list">
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+<!--                <img src="./assets/images/icon-design.svg" alt="design icon" width="40">-->
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Research</h4>
+
+                <p class="service-item-text">
+                  I study neural dynamics using graph theory and machine learning, investigating the anxiety circuitry in collaboration
+                  with skilled experimentalists.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+<!--                <img src="./assets/images/" alt="Web development icon" width="40">-->
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Software development</h4>
+
+                <p class="service-item-text">
+                  As a computational researcher, I develop Python packages to assist neurobiologists in analyzing their data. I
+                  aim to make reproducible and reuseable models.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+<!--                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">-->
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Racing and Outdoor Pursuits</h4>
+
+                <p class="service-item-text">
+                  I am a marathoner and am running my first IronMan soon! I love to boulder and rock climb,
+                  backpack, hike, summit mountains, snowboard, and explore the world.
+                </p>
+              </div>
+
+            </li>
+
+            <li class="service-item">
+
+              <div class="service-icon-box">
+<!--                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">-->
+              </div>
+
+              <div class="service-content-box">
+                <h4 class="h4 service-item-title">Music and Art</h4>
+
+                <p class="service-item-text">
+                  I also enjoy painting portraits, writing poetry and songs, singing, and playing my guitar.
+                </p>
+              </div>
+
+            </li>
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - research projects
+        -->
+
+        <section class="testimonials">
+
+          <h3 class="h3 testimonials-title">Research Projects</h3>
+
+          <ul class="testimonials-list has-scrollbar">
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/graph-theory-icon.png" alt="cagraph" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>cagraph</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    cagraph is a Python package designed to construct graph objects of calcium imaging data.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/rnn-icon.png" alt="carnn" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>carnn</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    carnn is a Python package designed to construct recurrent neural network models of
+                    neural dynamics collected with calcium imaging data.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="testimonials-item">
+              <div class="content-card" data-testimonials-item>
+
+                <figure class="testimonials-avatar-box">
+                  <img src="./assets/images/rnn-icon.png" alt="Anxiety circuitry" width="60" data-testimonials-avatar>
+                </figure>
+
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Anxiety circuitry</h4>
+
+                <div class="testimonials-text" data-testimonials-text>
+                  <p>
+                    The functional connectivity in the anxiety circuitry - specifically the dentate gyrus and basolateral amygdala -
+                    were studied using the cagraph and carnn Python packages.
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+
+          </ul>
+
+        </section>
+
+
+        <!--
+          - testimonials modal
+        -->
+
+        <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
+              </figure>
+
+            </div>
+
+            <div class="modal-content">
+
+              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
+
+
+              <div data-modal-text>
+                <p>
+                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                  lot of experience
+                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                  consectetur adipiscing
+                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                </p>
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </article>
+
+
+      <!--
+        - #Download button
+      -->
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .btn {
+      background-color: #96DDE3;
+      border: none;
+      color: white;
+      justify-content: center;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Darker background on mouse-over */
+    .btn:hover {
+      background-color: #18BFCD;
+    }
+  </style>
+</head>
+
+</html>
+
+      <!--
+        - #RESUME
+      -->
+
+      <article class="resume" data-page="resume">
+
+        <header>
+          <h2 class="h2 article-title">Resume</h2>
+        </header>
+
+
+<body>
+  <!-- Button with JavaScript function to trigger the download -->
+  <button class="btn" onclick="downloadFile()">Download CV</button>
+
+  <script>
+    function downloadFile() {
+      var fileName = "Porubsky_CV.pdf"; // Replace with the actual filename you want to download
+      var fileURL = "./assets/files/Porubsky_CV.pdf"; // Replace with the actual URL or relative path to the file
+
+      var link = document.createElement("a");
+      link.setAttribute("href", fileURL);
+      link.setAttribute("download", fileName);
+      link.style.display = "none";
+      document.body.appendChild(link);
+
+      link.click();
+
+      // Clean up
+      document.body.removeChild(link);
+    }
+  </script>
 </body>
+
+        <br/>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Education</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">University of Washington: Ph.D. in Bioengineering</h4>
+
+              <span>2017 — 2023</span>
+
+              <p class="timeline-text">
+                Thesis: Representing neurological systems using graph theory and recurrent neural network models
+                <br>
+                GPA: 3.91/4.0
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">University of Wisconsin-Madison: B.S. in Biomedical Engineering</h4>
+
+              <span>2013 - 2017</span>
+
+              <p class="timeline-text">
+                Certificates: Honors in Research, International Engineering, Biology in Engineering
+                <br>
+                GPA: 3.94/4.0
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Universitat Politecnica de Valencia</h4>
+
+              <span>2016</span>
+
+              <p class="timeline-text">
+                Focus: Biotechnology, Biomedical Engineering
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Research</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Identification of anxiety signatures in the dentate gyrus and basolateral amygdala </h4>
+
+              <span>2021 — Present</span>
+
+              <p class="timeline-text">
+                Analyzing neural activity collected from the anxiety circuit (dentate gyrus and basolateral amygdala) in live and behaving
+                mice during exposure to anxiety-provoking stimuli with graph theory and recurrent neural network models.
+
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">carnn: Python package for building recurrent neural network models of calcium imaging data</h4>
+
+              <span>2021 - Present</span>
+
+              <p class="timeline-text">
+                Developing a Python package to readily construct recurrent neural network models of neural dynamics collected using
+                calcium imaging in live and behaving mice.
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">cagraph: Python package for graph theory analysis of calcium imaging data </h4>
+
+              <span>2020 - 2023</span>
+
+              <p class="timeline-text">
+                Developed a Python package that uses graph theory to study dynamic changes in functional connectivity of neuronal
+                networks with graphs constructed from calcium imaging data of neural activity in live and behaving mice.
+
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section class="timeline">
+
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="book-outline"></ion-icon>
+            </div>
+
+            <h3 class="h3">Selected publications</h3>
+          </div>
+
+          <ol class="timeline-list">
+
+            <li class="timeline-item">
+
+              <p class="timeline-text">
+                V. L. Porubsky, H. M. Sauro. “A practical guide to reproducible modeling for signaling networks.” Methods in Molecular
+                Biology. 2023. DOI: 10.1007/978-1-0716-3008-2_5
+
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <p class="timeline-text">
+                V. L. Porubsky, A.P. Goldberg, A. K. Rampadarath, D. P. Nickerson, J. R. Karr, H. M. Sauro, “Best practices for making
+                reproducible biochemical models.” Cell Systems. 2020. DOI: 10.1016/j.cels.2020.06.012
+
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <p class="timeline-text">
+                V. L. Porubsky, L. P. Smith, H. M. Sauro, “Publishing reproducible dynamic kinetic models.” Briefings in Bioinformatics.
+                2020. DOI: 10.1093/bib/bbaa152
+
+              </p>
+
+            </li>
+
+            <li class="timeline-item">
+
+              <p class="timeline-text">
+                V. L. Porubsky and H. M. Sauro, “Application of Parameter Optimization to Search for Oscillatory Mass-Action Networks
+                Using Python.” Processes. 2019. DOI: 10.3390/pr7030163
+              </p>
+
+            </li>
+
+          </ol>
+
+        </section>
+
+        <section class="skill">
+
+          <h3 class="h3 skills-title">Skills</h3>
+
+          <ul class="skills-list content-card">
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Python</h5>
+                <data value="90">90%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Systems neuroscience</h5>
+                <data value="90">90%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 90%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Artificial neural networks and ML</h5>
+                <data value="70">70%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 70%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Quantitative Research</h5>
+                <data value="100">100%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 100%;"></div>
+              </div>
+
+            </li>
+
+            <li class="skills-item">
+
+              <div class="title-wrapper">
+                <h5 class="h5">Software Development</h5>
+                <data value="65">65%</data>
+              </div>
+
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" style="width: 65%;"></div>
+              </div>
+
+            </li>
+
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+
+
+
+      <!--
+        - #Research
+      -->
+
+      <article class="research" data-page="research">
+
+        <header>
+          <h2 class="h2 article-title">Research</h2>
+        </header>
+
+        <section class="projects">
+
+          <ul class="filter-list">
+
+            <li class="filter-item">
+              <button class="active" data-filter-btn>All</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Neuroscience</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Systems Biology</button>
+            </li>
+
+            <li class="filter-item">
+              <button data-filter-btn>Ovarian Cancer</button>
+            </li>
+
+          </ul>
+
+          <div class="filter-select-box">
+
+            <button class="filter-select" data-select>
+
+              <div class="select-value" data-selecct-value>Select category</div>
+
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+
+            </button>
+
+            <ul class="select-list">
+
+              <li class="select-item">
+                <button data-select-item>All</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Neuroscience</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Systems Biology</button>
+              </li>
+
+              <li class="select-item">
+                <button data-select-item>Ovarian Cancer</button>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <ul class="project-list">
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Finance</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web development">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Orizon</h3>
+
+                <p class="project-category">Web development</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="web design">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Fundo</h3>
+
+                <p class="project-category">Web design</p>
+
+              </a>
+            </li>
+
+            <li class="project-item  active" data-filter-item data-category="applications">
+              <a href="#">
+
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+
+                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
+                </figure>
+
+                <h3 class="project-title">Brawlhalla</h3>
+
+                <p class="project-category">Applications</p>
+
+              </a>
+            </li>
+
+          </ul>
+
+        </section>
+
+      </article>
+
+
+      <!--
+        - #CONTACT
+      -->
+
+      <article class="contact" data-page="contact">
+
+        <header>
+          <h2 class="h2 article-title">Contact</h2>
+        </header>
+
+
+        <section class="contact-form">
+
+          <h3 class="h3 form-title">Contact Form</h3>
+
+          <form action="#" class="form" data-form>
+
+            <div class="input-wrapper">
+              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+
+              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+            </div>
+
+            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+
+            <button class="form-btn" type="submit" disabled data-form-btn>
+              <ion-icon name="paper-plane"></ion-icon>
+              <span>Send Message</span>
+            </button>
+
+          </form>
+
+        </section>
+
+      </article>
+
+    </div>
+
+  </main>
+
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
 </html>
