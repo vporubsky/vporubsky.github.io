@@ -1,0 +1,35 @@
+.hero-visual {
+  width: min(36vw, 480px);
+}
+
+.portrait-frame {
+  background: var(--teal);
+  border-radius: 48% 52% 45% 55% / 42% 44% 56% 58%;
+  padding: 2% 2% 0;
+}
+
+.portrait-frame img {
+  filter: saturate(.86);
+  height: auto;
+  width: 100%;
+}
+
+.orbit {
+  height: 104%;
+  left: -2%;
+  top: -2%;
+  width: 104%;
+}
+
+.orbit-two {
+  height: 114%;
+  left: -7%;
+  top: -7%;
+  width: 114%;
+}
+
+@media (max-width: 900px) {
+  .hero-visual {
+    width: min(82vw, 430px);
+  }
+}
